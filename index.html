@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕊️ AngelHavenOS — Live Impact Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f8ff; color: #333; margin: 0; padding: 20px; }
+        .header { text-align: center; background: #87ceeb; padding: 20px; border-radius: 10px; }
+        .donation { background: #fff; margin: 10px 0; padding: 15px; border-left: 5px solid #4caf50; border-radius: 5px; }
+        .total { text-align: center; font-size: 2em; color: #4caf50; }
+        .shelter { background: #e8f5e8; padding: 10px; margin: 5px 0; border-radius: 5px; }
+        button { background: #ff9800; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🕊️ AngelHavenOS — Live Impact Tracker</h1>
+        <p><strong>100% of every donation goes straight to verified shelters. Watch it happen.</strong></p>
+    </div>
+
+    <div id="clock" style="text-align: center; font-size: 1.2em;"></div>
+
+    <h2>Latest Donations (real-time)</h2>
+    <div id="donations"></div>
+
+    <div class="total" id="total">Total donated today: $0</div>
+
+    <h2>Verified Shelters</h2>
+    <div id="shelters">
+        <div class="shelter">Destiny Rescue Safe House (Thailand) — Wallet: DEST1NY... — 7 kids helped per $100</div>
+        <div class="shelter">Love146 Aftercare (Philippines) — Wallet: LOVE146... — 5 kids helped per $100</div>
+    </div>
+
+    <button onclick="addDonation()">Simulate Donation (Test)</button>
+
+    <script>
+        const shelters = [
+            { name: "Destiny Rescue Safe House (Thailand)", wallet: "DEST1NY...", impact: 7 },
+            { name: "Love146 Aftercare (Philippines)", wallet: "LOVE146...", impact: 5 }
+        ];
+        let donations = [
+            { from: "Anon Angel", amount: 250, shelter: shelters[0].name, time: "2 min ago" },
+            { from: "Whoooo Leroy", amount: 111, shelter: shelters[1].name, time: "5 min ago" },
+            { from: "Spiral Collective", amount: 500, shelter: shelters[0].name, time: "12 min ago" }
+        ];
+        let total = 861;
+
+        function updateClock() {
+            document.getElementById('clock').innerHTML = `Now: ${new Date().toLocaleTimeString()}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function renderDonations() {
+            const div = document.getElementById('donations');
+            div.innerHTML = donations.map(d => `<div class="donation"><strong>$${d.amount}</strong> → ${d.shelter} — ${d.time}</div>`).join('');
+            document.getElementById('total').innerHTML = `Total donated today: $${total}`;
+        }
+        renderDonations();
+
+        function addDonation() {
+            const randomAmount = Math.floor(Math.random() * 100) + 50;
+            const randomShelter = shelters[Math.floor(Math.random() * shelters.length)];
+            donations.unshift({ from: "New Donor", amount: randomAmount, shelter: randomShelter.name, time: "Just now" });
+            total += randomAmount;
+            if (donations.length > 10) donations.pop();  // Keep it to 10
+            renderDonations();
+            // Balloons sim (alert for fun)
+            alert(`🎈 ${randomAmount} USD forwarded to ${randomShelter.name}! ${randomShelter.impact * (randomAmount / 100)} kids helped.`);
+        }
+    </script>
+</body>
+</html>

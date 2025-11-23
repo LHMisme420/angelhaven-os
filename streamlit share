@@ -1,0 +1,20 @@
+# 1. Clone & enter
+git clone https://github.com/yourusername/angelhaven-os.git
+cd angelhaven-os
+
+# 2. Build & deploy the Solana program (devnet first)
+cd contracts
+cargo build-bpf
+solana program deploy target/deploy/angelhaven_donation_splitter.so
+# → Copy the program ID it spits out and replace in README + dashboard
+
+# 3. Run the dashboard locally
+cd ../dashboard
+pip install -r requirements.txt
+streamlit run app.py
+# → Opens http://localhost:8501
+
+# 4. Push everything
+git add .
+git commit -m "v0.1 — 100% donation forwarder + live dashboard"
+git push

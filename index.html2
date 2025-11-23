@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AngelHavenOS • 100% to Shelters</title>
+  <style>
+    body {font-family: system-ui, sans-serif; background:#0f172a; color:#e2e8f0; margin:0; padding:20px; line-height:1.6;}
+    .container {max-width:900px; margin:auto; background:#1e293b; padding:30px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+    h1 {text-align:center; color:#60a5fa;}
+    .donation {background:#172554; padding:15px; margin:15px 0; border-radius:10px; border-left:5px solid #60a5fa;}
+    .total {font-size:2.5em; text-align:center; color:#34d399; margin:30px 0;}
+    button {background:#60a5fa; color:white; border:none; padding:14px 28px; font-size:1.2em; border-radius:8px; cursor:pointer;}
+    button:hover {background:#3b82f6;}
+    footer {text-align:center; margin-top:50px; color:#94a3b8; font-size:0.9em;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AngelHavenOS</h1>
+    <p style="text-align:center; font-size:1.3em;">

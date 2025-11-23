@@ -1,12 +1,17 @@
 [
   {
     "name": "Destiny Rescue Safe House (Thailand)",
-    "wallet": "DEST1NY11111111111111111111111111111111111111",
+    "wallet": "DRthai111111111111111111111111111111111111111111111111111111",
     "children_helped_per_100_usd": 7
   },
   {
     "name": "Love146 Aftercare (Philippines)",
-    "wallet": "LOVE146111111111111111111111111111111111111",
+    "wallet": "Love1461111111111111111111111111111111111111111111111111111",
     "children_helped_per_100_usd": 5
+  },
+  {
+    "name": "The A21 Walk For Freedom Safe Houses",
+    "wallet": "A21safe111111111111111111111111111111111111111111111111111111",
+    "children_helped_per_100_usd": 6
   }
 ]

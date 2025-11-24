@@ -1,0 +1,97 @@
+pub mod governance {
+    use std::time::{SystemTime, UNIX_EPOCH};
+
+    // 1. The Rules of Engagement
+    // This struct represents a rule from your "Sacred Ethics Charter"
+    #[derive(Debug, Clone)]
+    pub struct Mandate {
+        pub id: String,
+        pub description: String,
+        pub max_risk_score: u8, // 1 (Low) to 10 (Critical)
+    }
+
+    // 2. The Input
+    // What is trying to happen? (A prompt, a database write, an API call)
+    #[derive(Debug)]
+    pub struct ActionRequest {
+        pub request_id: String,
+        pub action_type: String,
+        pub payload_risk_score: u8,
+    }
+
+    // 3. The Decision
+    // The output of your adjudication
+    #[derive(Debug, PartialEq)]
+    pub enum Verdict {
+        Approved,
+        Denied { reason: String },
+        FlaggedForReview { reason: String },
+    }
+
+    // 4. The Audit Trail
+    // Immutable log of what happened
+    #[derive(Debug)]
+    pub struct AuditLog {
+        pub timestamp: u64,
+        pub request_id: String,
+        pub verdict: Verdict,
+    }
+
+    // THE ENGINE: The logic that enforces the rules
+    pub fn adjudicate(request: &ActionRequest, mandate: &Mandate) -> (Verdict, AuditLog) {
+        let verdict = if request.payload_risk_score > mandate.max_risk_score {
+            Verdict::Denied {
+                reason: format!("Risk score {} exceeds mandate limit of {}", 
+                request.payload_risk_score, mandate.max_risk_score),
+            }
+        } else if request.payload_risk_score > (mandate.max_risk_score - 2) {
+            // If it's close to the limit, we allow it but flag it (Risk Management logic)
+            Verdict::FlaggedForReview {
+                reason: "Near risk threshold limit".to_string(),
+            }
+        } else {
+            Verdict::Approved
+        };
+
+        // Create the paper trail
+        let log = AuditLog {
+            timestamp: SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs(),
+            request_id: request.request_id.clone(),
+            verdict: match verdict {
+                Verdict::Approved => Verdict::Approved,
+                Verdict::Denied { ref reason } => Verdict::Denied { reason: reason.clone() },
+                Verdict::FlaggedForReview { ref reason } => Verdict::FlaggedForReview { reason: reason.clone() },
+            },
+        };
+
+        (verdict, log)
+    }
+}
+
+// Unit Tests to verify the logic before deployment
+#[cfg(test)]
+mod tests {
+    use super::governance::*;
+
+    #[test]
+    fn test_high_risk_block() {
+        let rule = Mandate {
+            id: "RULE-001".to_string(),
+            description: "Prevent autonomous escalation".to_string(),
+            max_risk_score: 5,
+        };
+        
+        let dangerous_action = ActionRequest {
+            request_id: "TX-99".to_string(),
+            action_type: "DEPLOY_AGENT".to_string(),
+            payload_risk_score: 8,
+        };
+
+        let (verdict, _log) = adjudicate(&dangerous_action, &rule);
+        
+        match verdict {
+            Verdict::Denied { .. } => assert!(true),
+            _ => panic!("This should have been denied!"),
+        }
+    }
+}

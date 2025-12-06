@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AngelHaven Guardian</title>
+  <style>
+    body {font-family: Arial, sans-serif; width: 340px; padding: 15px; background: linear-gradient(#f0f8ff, #e6e6fa); margin:0;}
+    h1 {font-size: 19px; text-align:center; color:#4a90e2; margin:0 0 15px;}
+    button {width:100%; padding:13px; margin:8px 0; background:#4a90e2; color:white; border:none; border-radius:8px; font-size:15px; cursor:pointer;}
+    button:hover {background:#357abd;}
+    #impact {text-align:center; font-weight:bold; color:#28a745; font-size:16px; margin:15px 0;}
+    a {color:#4a90e2;}
+  </style>
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+</head>
+<body>
+  <h1>AngelHaven Guardian</h1>
+  <div id="impact">Loading impact…</div>
+
+  <button id="donate">Donate via Solana (100% to shelters)</button>
+  <button id="shelters">View Shelters & Resources</button>
+  <button id="playdoh">Playdoh Protocol</button>
+  <button id="manifesto">Read Manifesto</button>
+
+  <div id="output" style="display:none; margin-top:15px; font-size:14px; line-height:1.5;"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

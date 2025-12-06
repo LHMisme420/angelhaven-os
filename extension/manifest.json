@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "AngelHaven Guardian",
+  "version": "1.0",
+  "description": "Support anti-trafficking shelters from your browser • 100% on-chain • github.com/LHMisme420/angelhaven-os",
+  "icons": {
+    "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://raw.githubusercontent.com/*",
+    "https://api.mainnet-beta.solana.com/*"
+  ]
+}
